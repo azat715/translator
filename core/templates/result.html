@@ -1,0 +1,11 @@
+{% extends "./base.html" %}
+
+{% block navbar %}
+<li class="nav-item"><a href="{% url 'core:metods_list' %}">Методы</a></li>
+{% endblock %}
+{% block content %}
+<h4>Результат запроса</h4>
+<pre>
+    <pre>{{ data | pprint }}</pre>
+</pre>
+{% endblock %}

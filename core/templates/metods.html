@@ -1,0 +1,20 @@
+{% extends "./base.html" %}
+
+{% block content %}
+<h4>Список методов</h4>
+
+<div class="w-75">
+    <ul class="list-group">
+        <li class="list-group-item">
+            <span>Проверка аутентификации</span>
+            <a class="btn btn-primary" href="{% url 'core:auth_check' %}">Запрос</a>
+        </li>
+        <li class="list-group-item">
+            <span>Тестовый запрос(всегда возвращает ошибку)</span>
+            <a class="btn btn-primary" href="{% url 'core:test_metod' %}">Запрос</a>
+        </li>
+    </ul>
+</div>
+
+
+{% endblock %}
