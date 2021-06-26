@@ -4,9 +4,6 @@ services:
   web:
     build: .
     volumes:
-      - data:/code/ssl_store
+      - ./ssl_store:/code/ssl_store
     ports:
       - "8000:8000"
-
-volumes: 
-  data:
