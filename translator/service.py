@@ -8,8 +8,6 @@ from django.conf import settings
 
 URL = "slb.medv.ru"
 
-DATA = json.dumps({"jsonrpc": "2.0", "method": "auth.check", "id": 1})
-
 
 class ClientRpcError(Exception):
     def __init__(self, code, message, data):
@@ -36,11 +34,19 @@ class ClientRpc:
     def __init__(self):
         try:
             self.url = urlparse(settings.RPC_URL)
-            self.certfile = settings.SSL_RPC["certfile"]
-            self.keyfile = settings.SSL_RPC["keyfile"]
         except KeyError as err:
             print("KeyError: {0}".format(err))
             raise Exception("Проверьте настроки Django settings.py")
+        self.certfile = settings.SSL_RPC["certfile"]
+        if not self.certfile.exists():
+            raise Exception(
+                "Проверьте настроки Django settings.py: Отсутствует файл certfile"
+            )
+        self.keyfile = settings.SSL_RPC["keyfile"]
+        if not self.keyfile.exists():
+            raise Exception(
+                "Проверьте настроки Django settings.py: Отсутствует файл keyfile"
+            )
         self.hostname = self.url.hostname
         self.path = self.url.path
         context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
