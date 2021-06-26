@@ -5,7 +5,15 @@
 {% endblock %}
 {% block content %}
 <h4>Результат запроса</h4>
+{% if data %}
 <pre>
-    <pre>{{ data | pprint }}</pre>
+{{ data | pprint }}
 </pre>
+{% endif %}
+{% if error %}
+<h5>Произошла ошибка</h5>
+<span>Code: {{ error.code }}</span><br>
+<span>Message: {{ error.message }}</span><br>
+<span>Data: {{ error.data }}</span><br>
+{% endif %}
 {% endblock %}
